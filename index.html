@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="fade-in">
+    <div class="text-center mb-4">
+        <h1><i class="fas fa-microscope"></i> Oral Cancer Classifier</h1>
+        <p class="text-muted">Advanced AI-powered oral cancer detection system for medical professionals</p>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-upload"></i> Upload Medical Image for Analysis</h3>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data" class="mb-0">
+            <div class="form-group">
+                <label for="file"><i class="fas fa-image"></i> Select Medical Image</label>
+                <input type="file" 
+                       name="file" 
+                       id="file"
+                       accept="image/*" 
+                       required
+                       class="form-control-file">
+                <small class="form-text text-muted">
+                    Supported formats: JPG, PNG, GIF. Maximum file size: 10MB
+                </small>
+            </div>
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-search"></i> Upload and Analyze
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% if error %}
+        <div class="alert alert-error slide-up">
+            <i class="fas fa-exclamation-triangle"></i>
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if result %}
+        <div class="card slide-up">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-line"></i> Analysis Results
+                </h3>
+            </div>
+            
+            <div class="text-center">
+                <div class="alert alert-info mb-3">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Prediction:</strong> {{ result }}
+                </div>
+                
+                {% if image_url %}
+                    <h4 class="mb-3">
+                        <i class="fas fa-image"></i> Annotated Medical Image
+                    </h4>
+                    <img src="{{ url_for('uploaded_file', filename=image_url) }}" 
+                         alt="Annotated Medical Image" 
+                         class="result-image">
+                    
+                    <div class="mt-3">
+                        <a href="{{ url_for('uploaded_file', filename=image_url) }}" 
+                           class="btn btn-secondary" 
+                           download>
+                            <i class="fas fa-download"></i> Download Result
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <i class="fas fa-user-md"></i> For Medical Professionals
+                </h4>
+            </div>
+            
+            <p class="text-center">
+                To access advanced features like patient management, detailed reports, and history tracking, 
+                please <a href="{{ url_for('login') }}" class="btn btn-outline btn-sm">Login</a> 
+                or <a href="{{ url_for('signup') }}" class="btn btn-primary btn-sm">Sign Up</a>
+            </p>
+        </div>
+    {% endif %}
+
+    {% if not result %}
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <i class="fas fa-info-circle"></i> About This System
+                </h4>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 text-center mb-3">
+                    <div class="dashboard-card">
+                        <i class="fas fa-brain text-primary"></i>
+                        <h5>AI-Powered</h5>
+                        <p>Advanced machine learning algorithms trained on medical imaging data</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <div class="dashboard-card">
+                        <i class="fas fa-shield-alt text-success"></i>
+                        <h5>Secure & Private</h5>
+                        <p>HIPAA-compliant processing with encrypted data transmission</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <div class="dashboard-card">
+                        <i class="fas fa-clock text-warning"></i>
+                        <h5>Fast Results</h5>
+                        <p>Get analysis results in seconds, not hours or days</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <p class="text-muted">
+                    For healthcare professionals: <a href="{{ url_for('login') }}">Login</a> or 
+                    <a href="{{ url_for('signup') }}">Create Account</a> for advanced features
+                </p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+.col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding: 0 15px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+@media (max-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+</style>
+{% endblock %}

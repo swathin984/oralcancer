@@ -1,0 +1,10 @@
+Flask
+Flask-SQLAlchemy
+Flask-Login
+Flask-Bcrypt
+inference
+supervision
+opencv-python
+reportlab==3.6.0
+python-dotenv
+pytz

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Oral Cancer Classifier</h1>
+<p style="text-align:center; color:#555">Secure portal for Doctors and Admins to classify oral cancer images and manage patient records.</p>
+<div style="display:flex; gap:12px; justify-content:center; margin-top:20px;">
+    <a class="button" href="{{ url_for('login') }}">Login</a>
+    <a class="button" href="{{ url_for('signup') }}">Doctor Sign Up</a>
+</div>
+{% endblock %}
